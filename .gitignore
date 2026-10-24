@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Qwen3 weights and tokenizers downloaded by the notebook
+qwen3/
+*.pth
+*.part
+
+# MATH-500 download and eval logs
+math500_test.json
+math500-*.jsonl
+
+# Local env
+.env
+.env.*
+
+# Windows
+Thumbs.db
+Desktop.ini

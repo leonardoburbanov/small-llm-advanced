@@ -1,0 +1,48 @@
+[project]
+name = "small-llm-advanced"
+version = "0.1.0"
+description = "Small LLM advanced"
+requires-python = ">=3.10,<3.15"
+
+dependencies = [
+    "ipykernel>=6.29",
+    "torch>=2.10,<3",
+    "tokenizers>=0.21.2",
+    "nbformat>=5.10.4",
+    "sympy>=1.14.0",
+    "matplotlib>=3.10.7",
+    "requests>=2.34.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "ruff>=0.4.4",
+    "pytest-ruff>=0.5",
+    "huggingface-hub>=1.0",
+    "safetensors>=0.7",
+    "transformers>=4.53.0",
+]
+
+[project.optional-dependencies]
+extra = [
+    "datasets>=4.1.1",
+    "chainlit>=2.8.3; python_version < '3.14'",
+]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.uv]
+package = false
+exclude-newer = "7 days"
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu130", marker = "sys_platform == 'win32' or (sys_platform == 'linux' and platform_machine == 'aarch64')" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
