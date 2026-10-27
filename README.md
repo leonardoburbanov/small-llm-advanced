@@ -19,7 +19,7 @@ Customer (Spanish): *"Busco tenis para correr talla 42"*
 | | Output |
 |---|---|
 | **Base model** | `¿Qué tipo de tenis prefieres?` |
-| **Fine-tuned** | `{"action":"search_products","slots":{"category":"running shoes","size":"42"},"missing":[],"reply":"Buscando tenis para correr, talla 42."}` |
+| **Fine-tuned** | `{"action":"search_products","slots":{"category":"running shoes","size":"42","color":"no"},"missing":[],"reply":"Buscando tenis para correr, talla 42."}` |
 
 ## How it works
 
