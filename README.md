@@ -31,6 +31,18 @@ Customer (Spanish): *"Busco tenis para correr talla 42"*
 
 Trained on an **RTX 3060 Laptop GPU (6 GB)**.
 
+## Parameter-efficient variants
+
+Each notebook stands on its own. It uses the same model, dataset, loss mask and training loop as `finetuning.ipynb`, and swaps out only what gets trained. The adapters are written from scratch in PyTorch (no `peft`, no `bitsandbytes`) and go on all 7 linear layers of all 28 blocks.
+
+| Notebook | Technique | What is trained | Trainable params (Qwen3 0.6B) |
+|---|---|---|---|
+| [`finetuning.ipynb`](notebooks/finetuning.ipynb) | Partial finetune | Last 4 blocks, final norm, output head | 218.5M |
+| [`lora.ipynb`](notebooks/lora.ipynb) | LoRA | `ΔW = B A`, rank 8; merged back into `W` after training | 5.05M |
+| [`qlora.ipynb`](notebooks/qlora.ipynb) | QLoRA | LoRA on a base quantized to 4-bit NF4 (hand-written quantizer) | 5.05M |
+| [`lora_fa.ipynb`](notebooks/lora_fa.ipynb) | LoRA-FA | Only `B`; `A` stays frozen and random, which saves activation memory | 2.75M |
+| [`tinylora.ipynb`](notebooks/tinylora.ipynb) | TinyLoRA | One vector `v` shared by every layer: `ΔW = U Σ (Σ vᵢ Pᵢ) Vᵀ` | 13 |
+
 ## Run it
 
 ```bash
@@ -38,7 +50,7 @@ uv sync
 uv run jupyter lab notebooks/
 ```
 
-Run `shop_assistant_dataset.ipynb` first, then `finetuning.ipynb`. The first run downloads the Qwen3 0.6B base weights into `qwen3/`. Fine-tuning needs a CUDA GPU.
+Run `shop_assistant_dataset.ipynb` first, then `finetuning.ipynb` or any of the variant notebooks. The first run downloads the Qwen3 0.6B base weights into `qwen3/`. Fine-tuning needs a CUDA GPU.
 
 ## Credits
 
